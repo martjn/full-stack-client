@@ -30,7 +30,7 @@ function Login() {
   });
 
   const onSubmit = (data) => {
-    axios.post("http://localhost:3001/auth/login", data).then((response) => {
+    axios.post("https://full-stack-api-pmvb.onrender.com/auth/login", data).then((response) => {
       if (response.data.token) {
         localStorage.setItem("accessToken", response.data.token);
         localStorage.setItem("user", response.data.username);

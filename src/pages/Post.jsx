@@ -26,7 +26,7 @@ function Post({ user }) {
       PostId: id,
     };
     axios
-      .post("http://localhost:3001/comments", submitObject, {
+      .post("https://full-stack-api-pmvb.onrender.com/comments", submitObject, {
         headers: {
           accessToken: localStorage.getItem("accessToken"),
         },
@@ -43,7 +43,7 @@ function Post({ user }) {
 
   const deleteComment = (id) => {
     axios
-      .delete(`http://localhost:3001/comments/${id}`, {
+      .delete(`https://full-stack-api-pmvb.onrender.com/comments/${id}`, {
         headers: { accessToken: localStorage.getItem("accessToken") },
       })
       .then(() => {
@@ -56,13 +56,13 @@ function Post({ user }) {
   };
 
   useEffect(() => {
-    axios.get(`http://localhost:3001/posts/${id}`).then((response) => {
+    axios.get(`https://full-stack-api-pmvb.onrender.com/posts/${id}`).then((response) => {
       setPostData(response.data);
     });
   }, []);
 
   useEffect(() => {
-    axios.get(`http://localhost:3001/comments/${id}`).then((response) => {
+    axios.get(`https://full-stack-api-pmvb.onrender.com/comments/${id}`).then((response) => {
       setCommentData(response.data);
       console.log("Fetch comments");
     });
@@ -70,7 +70,7 @@ function Post({ user }) {
 
   const deletePost = (id) => {
     axios
-      .delete(`http://localhost:3001/posts/${id}`, {
+      .delete(`https://full-stack-api-pmvb.onrender.com/posts/${id}`, {
         headers: {
           accessToken: localStorage.getItem("accessToken"),
         },
@@ -84,7 +84,7 @@ function Post({ user }) {
     if (option === "title") {
       let newTitle = prompt("Edit title:");
       axios.put(
-        "http://localhost:3001/posts/title",
+        "https://full-stack-api-pmvb.onrender.com/posts/title",
         { newTitle: newTitle, id: id },
         {
           headers: { accessToken: localStorage.getItem("accessToken") },
@@ -94,7 +94,7 @@ function Post({ user }) {
     } else {
       let newPostBody = prompt("Edit body:");
       axios.put(
-        "http://localhost:3001/posts/postText",
+        "https://full-stack-api-pmvb.onrender.com/posts/postText",
         { newText: newPostBody, id: id },
         {
           headers: { accessToken: localStorage.getItem("accessToken") },

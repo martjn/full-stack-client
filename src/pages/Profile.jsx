@@ -11,7 +11,7 @@ const Profile = () => {
   const [listOfPosts, setListOfPosts] = useState([]);
   let navigate = useNavigate();
   useEffect(() => {
-    axios.get(`http://localhost:3001/auth/user/${id}`).then((response) => {
+    axios.get(`https://full-stack-api-pmvb.onrender.com/auth/user/${id}`).then((response) => {
       setUserData({
         username: response.data.username,
         postCount: response.data.associatedPosts.length,

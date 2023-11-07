@@ -28,7 +28,7 @@ function Registration() {
   });
 
   const onSubmit = (data) => {
-    axios.post("http://localhost:3001/auth", data).then((response) => {
+    axios.post("https://full-stack-api-pmvb.onrender.com/auth", data).then((response) => {
       if (response.data.status === "success") {
         setUserExists(false)
         navigate("/token")

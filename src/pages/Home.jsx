@@ -17,7 +17,7 @@ function Home() {
       navigate("/auth");
     } else {
       axios
-        .get("http://localhost:3001/posts", {
+        .get("https://full-stack-api-pmvb.onrender.com/posts", {
           headers: {
             accessToken: localStorage.getItem("accessToken"),
           },
@@ -36,7 +36,7 @@ function Home() {
   const onLike = (postId) => {
     axios
       .post(
-        "http://localhost:3001/likes",
+        "https://full-stack-api-pmvb.onrender.com/likes",
         { PostId: postId },
         {
           headers: {
