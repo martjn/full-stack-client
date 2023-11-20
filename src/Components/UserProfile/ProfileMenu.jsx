@@ -35,7 +35,7 @@ export function ProfileMenu() {
           variant="circular"
           alt="tania andrew"
           className="cursor-pointer"
-          src="user.png"
+          src="https://postit-crud.vercel.app/user.png"
           loading="lazy"
           style={{
             backgroundColor: "white",

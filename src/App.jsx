@@ -80,7 +80,7 @@ function App() {
                     className="mb-2 flex items-center gap-4 cursor-pointer"
                   >
                     
-                    <img src="favicon.ico" alt="brand" className="h-8 w-8" loading="lazy"/>
+                    <img src="https://postit-crud.vercel.app/favicon.ico" alt="brand" className="h-8 w-8" loading="lazy"/>
                     <span
                       className="font-black text-md text-white"
                     >
@@ -99,7 +99,7 @@ function App() {
               <>
                 <div>
                   <div className="mb-2 flex items-center gap-4 p-4 cursor-pointer">
-                    <img src="favicon.ico" alt="brand" className="h-10 w-10" />
+                    <img src="https://postit-crud.vercel.app/favicon.ico" alt="brand" loading="lazy" className="h-10 w-10" />
                     <span className="font-black text-2xl text-white">
                       PostIt
                     </span>
