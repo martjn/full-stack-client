@@ -16,7 +16,7 @@ function Token() {
 
   return (
     <>
-      <div className="text-3xl text-center">User registered successfully</div>
+      <div className="text-3xl text-center text-white">User registered successfully</div>
       <div className="flex justify-center">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -32,7 +32,7 @@ function Token() {
         </svg>
       </div>
       ;
-      <div className="text-3xl text-center">
+      <div className="text-3xl text-center text-white">
         Redirecting in {count} seconds...
       </div>
     </>

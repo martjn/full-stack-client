@@ -44,7 +44,7 @@ function Login() {
     });
   };
   return (
-    <div className="mt-10 flex flex-column justify-start align-middle flex-nowrap justify-center align-middle ">
+    <div className="mt-10 flex flex-column justify-center align-middle flex-nowrap">
       <Formik
         initialValues={initialValues}
         onSubmit={onSubmit}
@@ -53,7 +53,7 @@ function Login() {
         <Form className="flex flex-col gap-6">
           <Card className="w-96">
             <CardHeader
-              variant="gradient"
+              variant="filled"
               color="gray"
               className="mb-4 grid h-28 place-items-center"
             >
@@ -63,7 +63,7 @@ function Login() {
             </CardHeader>
             <CardBody className="flex flex-col gap-4">
               <ErrorMessage
-                className="text-red-400"
+                className="text-red-400 font-bold"
                 name="username"
                 component="span"
               />
@@ -75,7 +75,7 @@ function Login() {
                 autoComplete="off"
               />
               <ErrorMessage
-                className="text-red-400"
+                className="text-red-400 font-bold"
                 name="password"
                 component="span"
               />
@@ -88,7 +88,7 @@ function Login() {
               />
             </CardBody>
             <CardFooter className="pt-0">
-              <Button type="submit" variant="gradient" fullWidth>
+              <Button type="submit" variant="filled" fullWidth>
                 Sign In
               </Button>
               <Typography variant="small" className="mt-6 flex justify-center">

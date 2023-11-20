@@ -23,8 +23,8 @@ function Registration() {
   };
 
   const validationSchema = Yup.object().shape({
-    username: Yup.string().min(3).max(15).required(),
-    password: Yup.string().min(3).max(15).required(),
+    username: Yup.string().min(5).max(15).required(),
+    password: Yup.string().min(5).max(15).required(),
   });
 
   const onSubmit = (data) => {
@@ -39,7 +39,7 @@ function Registration() {
     });
   };
   return (
-    <div className="mt-10 flex flex-column justify-start align-middle flex-nowrap justify-center align-middle ">
+    <div className="mt-10 flex flex-column justify-center align-middle flex-nowrap">
       <Formik
         initialValues={initialValues}
         onSubmit={onSubmit}
@@ -48,7 +48,7 @@ function Registration() {
         <Form className="flex flex-col gap-6">
           <Card className="w-96">
             <CardHeader
-              variant="gradient"
+              variant="filled"
               color="gray"
               className="mb-4 grid h-28 place-items-center"
             >
@@ -64,7 +64,7 @@ function Registration() {
               />
               {userExists && <p className="text-red-500 font-bold">User already exists</p>}
               <Field
-                className="rounded-xl shadow-2xl"
+                className="rounded-xl"
                 name="username"
                 placeholder="Username"
                 autoComplete="off"
@@ -75,7 +75,7 @@ function Registration() {
                 component="span"
               />
               <Field
-                className="rounded-xl shadow-2xl"
+                className="rounded-xl"
                 name="password"
                 placeholder="Password"
                 autoComplete="off"
@@ -83,7 +83,7 @@ function Registration() {
               />
             </CardBody>
             <CardFooter className="pt-0">
-              <Button type="submit" variant="gradient" fullWidth>
+              <Button type="submit" variant="filled" fullWidth>
                 Sign Up
               </Button>
               <Typography variant="small" className="mt-6 flex justify-center">
