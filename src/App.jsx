@@ -27,7 +27,6 @@ function App() {
   const [profileMenuToggle, setProfileMenuToggle] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(window.innerWidth >= 1280);
 
-
   useEffect(() => {
     axios
       .get("https://full-stack-api-pmvb.onrender.com/auth/auth", {
@@ -76,14 +75,17 @@ function App() {
                     <MenuIcon className="text-white" />
                   </Button>
                 ) : (
-                  <Link to="/"
+                  <Link
+                    to="/"
                     className="mb-2 flex items-center gap-4 cursor-pointer"
                   >
-                    
-                    <img src="https://postit-crud.vercel.app/favicon.ico" alt="brand" className="h-8 w-8" loading="lazy"/>
-                    <span
-                      className="font-black text-md text-white"
-                    >
+                    <img
+                      src="https://postit-crud.vercel.app/favicon.ico"
+                      alt="brand"
+                      className="h-8 w-8"
+                      loading="lazy"
+                    />
+                    <span className="font-black text-md text-white">
                       PostIt
                     </span>
                   </Link>
@@ -92,14 +94,22 @@ function App() {
                   onClick={onMenuToggle}
                   className="flex cursor-pointer align-middle justify-center text-white font-bold items-center gap-5"
                 >
-                  <ProfileMenu toggleState={profileMenuToggle} userName={authState.username} />
+                  <ProfileMenu
+                    toggleState={profileMenuToggle}
+                    userName={authState.username}
+                  />
                 </div>
               </>
             ) : (
               <>
                 <div>
                   <div className="mb-2 flex items-center gap-4 p-4 cursor-pointer">
-                    <img src="https://postit-crud.vercel.app/favicon.ico" alt="brand" loading="lazy" className="h-10 w-10" />
+                    <img
+                      src="https://postit-crud.vercel.app/favicon.ico"
+                      alt="brand"
+                      loading="lazy"
+                      className="h-10 w-10"
+                    />
                     <span className="font-black text-2xl text-white">
                       PostIt
                     </span>
