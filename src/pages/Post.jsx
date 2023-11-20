@@ -154,7 +154,9 @@ function Post({ user }) {
           </div>
           <div
             onClick={() => {
-              editPost("body");
+              if (authState.username === postData.username) {
+                editPost("title");
+              }
             }}
             className="text-gray-400 mb-2 text-sm whitespace-pre-line"
           >

@@ -38,7 +38,7 @@ export function Sidebar({isOpen, onClose}) {
           onClose();
         }}
       >
-        <img src="favicon.ico" alt="brand" className="h-8 w-8" />
+        <img src="https://postit-crud.vercel.app/favicon.ico" alt="brand" className="h-8 w-8" />
         <Typography variant="h1" color="white" className="font-black text-3xl">
           Menu
         </Typography>
