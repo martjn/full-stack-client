@@ -44,7 +44,7 @@ function Login() {
     });
   };
   return (
-    <div className="mt-10 flex flex-column justify-center align-middle flex-nowrap">
+    <div className="min-h-[calc(100vh-200px)] flex flex-column items-center justify-center align-middle flex-nowrap">
       <Formik
         initialValues={initialValues}
         onSubmit={onSubmit}
