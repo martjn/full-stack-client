@@ -7,6 +7,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useState, useContext, useEffect } from "react";
 import { AuthContext } from "../helpers/AuthContext";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 function CreatePost() {
   let navigate = useNavigate();
@@ -20,7 +21,7 @@ function CreatePost() {
 
   const validationSchema = Yup.object().shape({
     title: Yup.string().required(),
-    postText: Yup.string().required(),
+    postText: Yup.string().max(4000).required(),
   });
 
   const onSubmit = (data) => {
@@ -39,58 +40,61 @@ function CreatePost() {
     }
   }, []);
 
+  const goBack = () => {
+    navigate(-1);
+  };
+
   return (
-    <div className="flex flex-col my-11 lg:w-6/12 shrink-0 mx-10 shadow-2xl shadow-blue-gray-500 rounded-3xl p-10">
-      <p className="text-6xl font-bold">Create a post</p>
-      <p className="text-9xl font-bold">---</p>
-      <Formik
-        initialValues={initialValues}
-        onSubmit={onSubmit}
-        validationSchema={validationSchema}
-      >
-        <Form className="flex flex-col gap-6">
-          {!authState.status && (
-            <>
-              <ErrorMessage
-                className="text-red-400"
-                name="username"
-                component="span"
-              />
-              <Field
-                className="rounded-xl shadow-2xl"
-                name="username"
-                placeholder="username"
-                autoComplete="off"
-              />
-            </>
-          )}
-          <ErrorMessage
-            className="text-red-400"
-            name="title"
-            component="span"
-          />
-          <Field
-            className="rounded-xl shadow-2xl"
-            name="title"
-            placeholder="title"
-            autoComplete="off"
-          />
-          <ErrorMessage
-            className="text-red-400"
-            name="postText"
-            component="span"
-          />
-          <Field
-            component="textarea"
-            className="rounded-xl shadow-2xl h-48"
-            name="postText"
-            placeholder="content"
-            autoComplete="off"
-          />
-          <Button type="submit">Create Post</Button>
-        </Form>
-      </Formik>
-    </div>
+    <>
+      <div className="flex flex-col items-center w-full rounded-sm border-blue-gray-100 border-opacity-50 md:w-3/4 lg:w-1/2 xl:w-1/2 mx-auto">
+        <Button
+          onClick={goBack}
+          className="flex my-5 p-2 self-start items-center"
+        >
+          <ArrowBackIcon />
+          Go Back
+        </Button>
+        <div className="p-4 w-full bg-black border-b border-t border-x border-opacity-50 border-blue-gray-100">
+          <div className="text-lg my-2 font-bold text-white rounded">
+            Create a post
+          </div>
+          <div className="text-gray-400 mb-2 text-sm whitespace-pre-line">
+            <div className="p-2">
+              <Formik
+                validationSchema={validationSchema}
+                initialValues={initialValues}
+                onSubmit={onSubmit}
+              >
+                <Form className="flex flex-col gap-6 mt-2">
+                  <Field
+                    type="text" // Change the type to text
+                    className="rounded-md bg-black text-white"
+                    name="title" // Use a different name for the title field
+                    placeholder="Title..."
+                    autoComplete="off"
+                  />
+                  <ErrorMessage
+                    className="text-red-400 font-bold"
+                    name="postText"
+                    component="span"
+                  />
+                  <Field
+                    component="textarea"
+                    className="rounded-md bg-black text-white"
+                    name="postText"
+                    placeholder="Post content..."
+                    autoComplete="off"
+                  />
+                  <Button className="my-5" type="submit">
+                    Submit post
+                  </Button>
+                </Form>
+              </Formik>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
   );
 }
 

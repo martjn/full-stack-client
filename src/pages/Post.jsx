@@ -3,10 +3,12 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import { Button } from "@material-tailwind/react";
-import { Formik, Form, Field, ErrorMessage } from "formik";
 import { AuthContext } from "../helpers/AuthContext";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import { useNavigate } from "react-router-dom";
+import TimeAgo from "../Components/TimeAgo/TimeAgo";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { Formik, Form, Field, ErrorMessage } from "formik";
 
 function Post({ user }) {
   const [postData, setPostData] = useState([]);
@@ -56,16 +58,20 @@ function Post({ user }) {
   };
 
   useEffect(() => {
-    axios.get(`https://full-stack-api-pmvb.onrender.com/posts/${id}`).then((response) => {
-      setPostData(response.data);
-    });
+    axios
+      .get(`https://full-stack-api-pmvb.onrender.com/posts/${id}`)
+      .then((response) => {
+        setPostData(response.data);
+      });
   }, []);
 
   useEffect(() => {
-    axios.get(`https://full-stack-api-pmvb.onrender.com/comments/${id}`).then((response) => {
-      setCommentData(response.data);
-      console.log("Fetch comments");
-    });
+    axios
+      .get(`https://full-stack-api-pmvb.onrender.com/comments/${id}`)
+      .then((response) => {
+        setCommentData(response.data);
+        console.log("Fetch comments");
+      });
   }, []);
 
   const deletePost = (id) => {
@@ -83,6 +89,7 @@ function Post({ user }) {
   const editPost = (option) => {
     if (option === "title") {
       let newTitle = prompt("Edit title:");
+      if (newTitle === "" || newTitle === null) return;
       axios.put(
         "https://full-stack-api-pmvb.onrender.com/posts/title",
         { newTitle: newTitle, id: id },
@@ -90,9 +97,10 @@ function Post({ user }) {
           headers: { accessToken: localStorage.getItem("accessToken") },
         }
       );
-      setPostData({...postData, title: newTitle})
+      setPostData({ ...postData, title: newTitle });
     } else {
       let newPostBody = prompt("Edit body:");
+      if (newPostBody === "" || newPostBody === null) return;
       axios.put(
         "https://full-stack-api-pmvb.onrender.com/posts/postText",
         { newText: newPostBody, id: id },
@@ -100,84 +108,115 @@ function Post({ user }) {
           headers: { accessToken: localStorage.getItem("accessToken") },
         }
       );
-      setPostData({...postData, postText: newPostBody})
+      setPostData({ ...postData, postText: newPostBody });
     }
+  };
+
+  const goBack = () => {
+    navigate(-1);
   };
   return (
     <>
-      <div className="p-4 w-4/6 shadow-lg my-5 rounded-xl">
-        <div
-          onClick={() => {
-            if (authState.username === postData.username) {
-              editPost("title");
-            }
-          }}
-          className="my-2 p-2 font-bold bg-gray-800 text-blue-gray-200 rounded"
+      <div className="flex flex-col items-center w-full rounded-sm border-blue-gray-100 border-opacity-50 md:w-3/4 lg:w-1/2 xl:w-1/2 mx-auto">
+        <Button
+          onClick={goBack}
+          className="flex my-5 p-2 self-start items-center"
         >
-          {postData.title}
-        </div>
-        <div
-          onClick={() => {
-            editPost("body");
-          }}
-          className="border-2 border-violet-600 rounded p-2"
-        >
-          {postData.postText}
-        </div>
-        <div className="flex text-sm justify-between">
-          {`@${postData.username}`}
-          {authState.username === postData.username && (
-            <button
-              onClick={() => {
-                deletePost(postData.id);
-              }}
-              className="p-1 bg-red-700 rounded-lg hover:text-white transition"
-            >
-              <DeleteOutlineIcon />
-              Delete post
-            </button>
-          )}
-        </div>
-      </div>
-      {localStorage.getItem("accessToken") && (
-        <div className="p-4 w-1/2 shadow-lg rounded-xl">
-          <Formik initialValues={initialValues} onSubmit={onSubmit}>
-            <Form className="flex flex-col gap-6">
-              <Field
-                component="textarea"
-                className="rounded-xl"
-                name="commentText"
-                placeholder="add a comment..."
-                autoComplete="off"
-              />
-              <Button className="my-5" type="submit">
-                Add Comment
-              </Button>
-            </Form>
-          </Formik>
-        </div>
-      )}
-      <div className="p-4 w-1/2 shadow-lg rounded-xl">
-        <span className="text-2xl">Comment Section</span>
-        {commentData.map((comment, idx) => {
-          return (
-            <div key={idx} className="p-2 w-4/5 shadow-sm">
-              {`@${comment.username}`}
-              <p>{`${comment.commentText}`}</p>
-              {authState.username === comment.username && (
-                <button
-                  onClick={() => {
-                    deleteComment(comment.id);
-                  }}
-                  className="shadow-sm bg-blue-gray-300 rounded-md p-2"
-                >
-                  x
-                </button>
-              )}
+          <ArrowBackIcon />
+          Go Back
+        </Button>
+        <div className="p-4 w-full bg-black border-b border-t border-x border-opacity-50 border-blue-gray-100">
+          <div className="flex flex-row justify-between">
+            <div className="flex text-sm text-gray-400 gap-1">
+              {`@${postData.username} · `}
+              {postData.createdAt && <TimeAgo date={postData.createdAt} />}
             </div>
-          );
-        })}
-        <div className="p-2 w-4/5 shadow-sm"></div>
+            {authState.username === postData.username && (
+              <button
+                onClick={() => {
+                  deletePost(postData.id);
+                }}
+                className="text-red-900 rounded-lg hover:text-white transition"
+              >
+                <DeleteOutlineIcon />
+              </button>
+            )}
+          </div>
+          <div
+            onClick={() => {
+              if (authState.username === postData.username) {
+                editPost("title");
+              }
+            }}
+            className="text-lg my-2 font-bold text-white rounded"
+          >
+            {postData.title}
+          </div>
+          <div
+            onClick={() => {
+              editPost("body");
+            }}
+            className="text-gray-400 mb-2 text-sm whitespace-pre-line"
+          >
+            {postData.postText}
+          </div>
+          <hr></hr>
+          {localStorage.getItem("accessToken") && (
+            <div className="p-2">
+              <Formik initialValues={initialValues} onSubmit={onSubmit}>
+                <Form className="flex flex-col gap-6 mt-2">
+                  <Field
+                    component="textarea"
+                    className="rounded-md bg-black text-white"
+                    name="commentText"
+                    placeholder="add a comment..."
+                    autoComplete="off"
+                  />
+                  <Button className="my-5" type="submit">
+                    Add Comment
+                  </Button>
+                </Form>
+              </Formik>
+            </div>
+          )}
+          <div className="p-4 shadow-lg rounded-xl">
+            <span className="text-2xl text-white">
+              Discussion ({commentData.length})
+            </span>
+            {commentData.map((comment, idx) => {
+              return (
+                <div
+                  key={idx}
+                  className="p-2 shadow-sm text-white border-b border-blue-gray-100 border-opacity-50"
+                >
+                  <div className="flex flex-row justify-between w-full">
+                    <div className="flex flex-row text-sm text-gray-400 justify-between w-full">
+                      <div className="flex flex-row gap-1">
+                        {`@${comment.username} · `}
+                        {comment.createdAt && (
+                          <TimeAgo date={comment.createdAt} />
+                        )}
+                      </div>
+                      {authState.username === comment.username && (
+                        <button
+                          onClick={() => {
+                            deleteComment(comment.id);
+                          }}
+                          className="text-red-900  hover:text-white transition"
+                        >
+                          <DeleteOutlineIcon />
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                  <p
+                    style={{ whiteSpace: "pre-line" }}
+                  >{`${comment.commentText}`}</p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
       </div>
     </>
   );
